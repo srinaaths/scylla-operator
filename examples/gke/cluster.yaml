@@ -14,6 +14,9 @@ spec:
   agentVersion: 3.3.3@sha256:40e31739e8fb1d48af87abaeaa8ee29f71607964daa8434fe2526dfc6f665920
   version: 6.1.1
   automaticOrphanedNodeCleanup: true
+  alternator:
+    port: 8000
+    writeIsolation: only_rmw_uses_lwt
   sysctls:
     - fs.aio-max-nr=2097152
   datacenter:
@@ -25,14 +28,14 @@ spec:
         members: 2
         storage:
           storageClassName: scylladb-local-xfs
-          capacity: 2995G
+          capacity: 20G
         resources:
           limits:
-            cpu: 30
-            memory: 115G
+            cpu: 1
+            memory: 2G
           requests:
-            cpu: 30
-            memory: 115G
+            cpu: 1
+            memory: 2G
         placement:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:

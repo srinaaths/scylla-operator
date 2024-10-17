@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: scylla
       scylla-operator.scylladb.com/scylla-service-type: member
-      scylla/cluster: replace-with-your-scyllacluster-name
+      scylla/cluster: scylla-cluster
   components:
     prometheus:
       storage:

@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-io1
+provisioner: ebs.csi.aws.com
+parameters:
+  type: io1
+  iopsPerGB: "50"  # Specify IOPS per GB
+  volumeSize: "20Gi"  # Minimum volume size for io1
+  fsType: ext4  # File system type
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer

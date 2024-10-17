@@ -1,0 +1,22 @@
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+  name: scylla-provisioner
+spec:
+  limits:
+    resources:
+      cpu: "1000"  # Max CPU resources across the cluster (optional)
+  provider:
+    instanceProfile: "<YourInstanceProfileName>"  # Replace with your EC2 instance profile
+  ttlSecondsAfterEmpty: 30  # Time to wait before terminating an idle node
+  requirements:
+    - key: "node.kubernetes.io/instance-type"
+      operator: In
+      values: ["i3.large", "i3.xlarge", "i3.2xlarge"]  # Suitable instance types for ScyllaDB
+  taints:
+    - key: "role"
+      value: "scylla-clusters"
+      effect: NoSchedule  # Ensure only specific workloads are scheduled
+  kubeletConfiguration:
+    cpuCfsQuota: true
+    cpuCfsQuotaPeriod: "100ms"

@@ -1,0 +1,62 @@
+# Namespace where the Scylla Cluster will be created
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: scylla
+---
+# Scylla Cluster
+apiVersion: scylla.scylladb.com/v1
+kind: ScyllaCluster
+metadata:
+  name: scylla-cluster
+  namespace: scylla
+spec:
+  agentVersion: 3.3.3@sha256:40e31739e8fb1d48af87abaeaa8ee29f71607964daa8434fe2526dfc6f665920
+  version: 6.1.1
+  alternator:
+    port: 8000
+    writeIsolation: only_rmw_uses_lwt
+  sysctls:
+    - fs.aio-max-nr=2097152
+  datacenter:
+    name: us-east-1
+    racks:
+      - name: a
+        members: 1
+        storage:
+          storageClassName: scylladb-local-xfs
+          capacity: 2G
+        resources:
+          limits:
+            cpu: 2  # Adjusted CPU limit
+            memory: 5G  # Adjusted memory limit
+        placement:
+          nodeAffinity: {}  # Removed nodeAffinity rules to allow scheduling on any node
+          tolerations:
+            - operator: Exists  # Allows scheduling on any nodes with taints
+      - name: b
+        members: 1
+        storage:
+          storageClassName: scylladb-local-xfs
+          capacity: 2G
+        resources:
+          limits:
+            cpu: 2  # Adjusted CPU limit
+            memory: 5G  # Adjusted memory limit
+        placement:
+          nodeAffinity: {}  # Removed nodeAffinity rules to allow scheduling on any node
+          tolerations:
+            - operator: Exists  # Allows scheduling on any nodes with taints
+      - name: c
+        members: 1
+        storage:
+          storageClassName: scylladb-local-xfs
+          capacity: 2G
+        resources:
+          limits:
+            cpu: 2  # Adjusted CPU limit
+            memory: 5G  # Adjusted memory limit
+        placement:
+          nodeAffinity: {}  # Removed nodeAffinity rules to allow scheduling on any node
+          tolerations:
+            - operator: Exists  # Allows scheduling on any nodes with taints

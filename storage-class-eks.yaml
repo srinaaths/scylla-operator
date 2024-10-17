@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: scylladb-local-xfs
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+parameters:
+  type: gp3 # EBS volume type. Options are gp2, gp3, io1, st1, sc1, etc.
+  fsType: xfs # File system type. You can use xfs for ScyllaDB.
+  encrypted: "true" # Set to "false" if you don't want the volume to be encrypted.

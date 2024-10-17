@@ -6,6 +6,13 @@ agentImage:
 # Cluster information
 developerMode: true
 datacenter: us-east-1
+alternator:
+  enabled: true
+  insecureEnableHTTP: true
+  insecureDisableAuthorization: true
+  writeIsolation: always
+serviceMonitor:
+  create: false
 racks:
   - name: us-east-1b
     members: 2
